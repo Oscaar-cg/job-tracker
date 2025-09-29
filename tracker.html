@@ -13,17 +13,60 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="tracker.html">Job Tracker</a></li>
             <li><a href="analyzer.html">Resume Analyzer</a></li>
+            <li><a href="tecnologies.html">Technologies</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li><a href="tecnologies.html">Technologies</a></li>
         </ul>
         <ul class="navbar-right">
             <li><a href="#contact"></a></li>
         </ul>
     </nav>
-<h1>Job Tracker</h1>
-<p>Comming soon Job Tracker....</p>
+
+<header>
+    <h1>Job Tracker</h1>
+    <p>Keep track of all your job applications in one place!</p>
+</header>
+
+<section id="add-job">
+    <h2>Add a Job</h2>
+    <form id="job-form">
+        <label for="job-title"> Job Title:</label>
+        <input type="text" id="job-title" name="job-title" placeholder="Enter job title" required>
+
+        <label for="company"> Company:</label>
+        <input type="text" id="company" name="company" placeholder="Enter company name" required>
+
+        <label for="status">Application Status:</label>
+        <select id="status" name="status">
+            <option value="Applied"> Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+
+        <button type="submit">Add Job</button>
+    </form>
+</section>
+
+<section id="job-list">
+    <h2>Your Jobs</h2>
+    <table id="job-table">
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--Show jobs (js)-->
+        </tbody>
+    </table>
+</section>
 
 <div id="menu-placeholder"></div>
+
+<script src="script.js"></script>
 </body>
 </html>
