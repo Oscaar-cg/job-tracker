@@ -3,7 +3,7 @@
 //Form
 const jobForm = document.getElementById('job-form');
 // table
-const jobList = document.getElementById('#job-list tbody');
+const jobList = document.querySelector('#job-list tbody');
 
 //Function to add job
 function addJob(event) {
@@ -30,3 +30,15 @@ function addJob(event) {
     // Reset form, user can add another job
     jobForm.reset();
 }
+
+// Fn to  delete a job
+function deleteJob(event) {
+    if(event.target.classList.contains('delete-btn')) {
+        const row = event.target.parentElement.parentElement;
+        row.remove();
+    }
+}
+
+//Event Listeners
+jobForm.addEventListener('submit', addJob);
+jobList.addEventListener('click', deleteJob);
