@@ -22,9 +22,34 @@
         </ul>
     </nav>
 
+<header>
 <h1>Resume Analyzer</h1>
-<p>Comming soon Resume Analyzer....</p>
+<p>Paste your resume below and get instant feedback!</p>
+</header>
 
-<div id="menu-placeholder"></div>
+<!--form for user to input resume-->
+<section id="resume_section">
+    <form id="resume_form">
+        <!--Upload resume-->
+        <label for="resume-file">Uplod your resume:</label>
+        <input type="file" id="resume-file" name="resume-file" accept="pdf, .doc, .docx, .txt">
+
+         <!--Textarea(to add past the resume as a texte)-->
+         <label for="resume-text">Paste your resume:</label>
+         <textarea id="resume-text" name="resume-text" rows="10" placeholder="Paste your resume here!"></textarea>
+        
+        <!--submit button-->
+        <button type="submit">Analyze Resume</button>
+    </form>
+</section>
+
+<section id="result-section">
+    <h2>Analysis Result</h2>
+
+    <div id="result-details">
+
+    </div>
+</section>
 </body>
+
 </html>
