@@ -8,4 +8,15 @@ const resumeFile = document.getElementById('resume_file');
  const resultDetails = document.getElementById('result_details');
 
  //add event listener when user submits form
- resumeForm.addEventListener()
+ resumeForm.addEventListener('submit', function(event){
+    event.preventDefault();
+
+    // get pasted txt' (del extra space)
+    const pastedText = resumeText.ariaValueMax.trim();
+
+    //get uploaded file first (trim enleve debut fin space)
+    const file = resumeFile.files && resumeFile.files[0];
+
+    //clear prev result
+    resultDetails.innerHTML ='';
+ });
