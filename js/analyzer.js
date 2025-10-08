@@ -7,6 +7,15 @@ const resumeFile = document.getElementById('resume_file');
  // select div to show analysis result
  const resultDetails = document.getElementById('result_details');
 
+ let skillsList = [];
+ fetch('')
+   .then(response => response.json())
+   .then(data => {
+      skillsList = data;
+      console.log("Skills loaded:", skillsList);
+   })
+   .catch(error =>console.error("Error loading skills:", error));
+
  //add event listener when user submits form
  resumeForm.addEventListener('submit', function(event){
     event.preventDefault();
