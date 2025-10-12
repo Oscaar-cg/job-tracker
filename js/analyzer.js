@@ -7,17 +7,55 @@ const resumeFile = document.getElementById('resume_file');
  // select div to show analysis result
  const resultDetails = document.getElementById('result_details');
 
- let skillsList = [];
- fetch('')
-   .then(response => response.json())
-   .then(data => {
-      skillsList = data;
-      console.log("Skills loaded:", skillsList);
-   })
-   .catch(error =>console.error("Error loading skills:", error));
+ const skillsList=[
+  "JavaScript", "Python", "SQL", "HTML", "CSS", "React", "Node.js",
+  "Excel", "Management", "Marketing", "Sales", "Communication",
+  "Photoshop", "Illustrator", "UX", "UI", "Finance", "Leadership",
+  "C++", "C#", "Java", "Kotlin", "Swift", "R", "Data Analysis",
+  "Customer Service", "Project Management", "Problem Solving",
+  "Machine Learning", "AI", "Database", "Networking", "Public Speaking"
+ ];
+
+ // Funtion that find skills in the txt
+
+ function extractSkills(text, skills) {
+  const found = [];
+
+  for (const skill of skills) {
+    console.log("Checking skill:", skill);
+    // On échappe les caractères spéciaux comme +, #, etc.
+    const escapedSkill = skill.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp("\\b" + escapedSkill + "\\b", "i");
+    if (regex.test(text)) {
+      found.push(skill);
+    }
+  }
+  
+  return found;
+}
+
+  //Function that display the results
+  function displaySkills(text) {
+    console.log("🔍 Analyzing text...");
+
+    const foundSkills = extractSkills(text, skillsList);
+
+    if (foundSkills.length > 0) {
+      resultDetails.innerHTML = `
+        <h3>✅ Skills detected: </h3>
+        <p>${foundSkills.join(', ')}</p>
+      `;
+    } else {
+      resultDetails.innerHTML = `
+        <h3>skills not detected.</h3>
+        <p>Try with another resume or add more words in the dictionary.</p>
+      `;
+      }
+    }
 
  //add event listener when user submits form
  resumeForm.addEventListener('submit', function(event){
+  console.log("🟢 Form submitted");
     event.preventDefault();
 
     // get pasted txt' (del extra space)
@@ -31,29 +69,18 @@ const resumeFile = document.getElementById('resume_file');
 
     //verifier si fichier upload
     if(file) {
+      console.log("📄 File detected:", file.name);
+
       const reader = new FileReader(); // create un lecteur de fichier
 
       reader.onload = function(e) {
          const fileText = e.target.result; // texte du fichier
-         console.log(fileText); //pout tester la lecture
+         displaySkills(fileText); //Pour analyzer le contenue du fichier
       };
       reader.readAsText(file);
-    }
-    // text for analyze
-    let resumeContent = pastedText;
-    //if uploaded file get text
-    if(file) {
-      const reader = new FileReader();
+    }else{
+      console.log("✏️ Text detected:", pastedText);
 
-      reader.onload = function(e) {
-         const fileText = e.target.result;
-         resumeContent = fileText;
-         
-         resultDetails.innerText = resumeContent;
-      };
-      
-      reader.readAsText(file);
-    } else {
-      resultDetails.innerText = resumeContent;
+      displaySkills(pastedText); //analyze le texte collé
     }
  });
