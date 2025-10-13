@@ -1,8 +1,10 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    margin:20px;
+    margin: 20px;
     background-color: #f8f8f8;
 }
+
+/* Barre de navigation */
 nav {
     width: 80vw;
     display: flex;
@@ -17,7 +19,6 @@ nav ul {
     justify-content: center;
     align-items: center;
 }
-
 nav ul li a {
     display: block;
     text-decoration: none;
@@ -25,6 +26,7 @@ nav ul li a {
     padding: 16px 24px;
 }
 
+/* Texte au-dessus de la vidéo */
 .video-text {
     text-align: center;
     font-size: 1.5rem;
@@ -32,8 +34,8 @@ nav ul li a {
     margin-bottom: 20px;
 }
 
-
-.video-container{
+/* Conteneur vidéo */
+.video-container {
     position: relative;
     width: 100%;
     max-width: 800px;
@@ -43,8 +45,7 @@ nav ul li a {
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
-
-.video-container iframe{
+.video-container iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -52,12 +53,12 @@ nav ul li a {
     height: 100%;
     border: none;
 }
-
 .video-container:hover {
     transform: scale(1.02);
-    transition: 0.3 ease;
+    transition: 0.3s ease;
 }
 
+/* Conteneur de compétences */
 .skills-container {
     display: flex;
     flex-wrap: wrap;
@@ -65,6 +66,7 @@ nav ul li a {
     margin-top: 10px;
 }
 
+/* Style des bulles de compétences */
 .skill-tag {
     background: linear-gradient(135deg, #ff4b1f, #1fddff);
     color: #222;
@@ -77,74 +79,35 @@ nav ul li a {
     opacity: 0;
     transform: translateY(10px);
     animation: fadeInUp 0.6s ease forwards;
-    box-shadow: 0 2px 5px rgba(0, 0, 0 ,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-/* animation */
+
+/* Animation d'apparition des bulles */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* hover */
+/* Effet hover sur les bulles */
 .skill-tag:hover {
-  transform: translateY(0) scale(1.15); /* on garde la position finale + zoom */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  cursor: pointer;
+    transform: translateY(0) scale(1.15); /* zoom fluide */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
 
+/* Animation d’apparition du texte */
 .fade-in {
     opacity: 0;
     animation: fadeIn 0.8s ease forwards;
 }
-
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-/*Animation texte Analysis Complete*/
-.zoom-icon {
-    display: inline-block;
-    animation: zoomIn 0.8s ease forwards;
-}
-
-@keyframes zoomIn {
-    0% {
-        transform: scale(0.6);
-        opacity: 0;
-    }
-    60% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  top: -10px;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: fall 3s ease-in forwards;
-  z-index: 9999;
-}
-
-@keyframes fall {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg);
-  }
 }

@@ -13,7 +13,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="tracker.html">Job Tracker</a></li>
             <li><a href="analyzer.html">Resume Analyzer</a></li>
-            <li><a href="tecnologies.html">Technologies</a></li>
+            <li><a href="technologies.html">Technologies</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -49,6 +49,25 @@
     <div id="result_details">
 
     </div>
+</section>
+
+<!--Job match section-->
+<section id="job_match_section">
+  <h2>Resume vs Job Description Match</h2>
+
+  <!--Paste job description-->
+  <label for="job_text">Paste Job Description:</label>
+  <textarea id="job_text" rows="8" placeholder="Paste the job Description here..."></textarea>
+  
+  <!--Button-->
+  <button id="compare_button">Compare Resume with Job</button>
+
+  <!--Resultat-->
+  <div id="match_result">
+    <canvas id="match_circle" width="200" height="200"></canvas>
+    <p id="match_score_text"></p>
+    <div id="match_details"></div>
+  </div>
 </section>
 
 <script src="js/analyzer.js"></script>
