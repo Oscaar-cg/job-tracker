@@ -57,3 +57,94 @@ nav ul li a {
     transform: scale(1.02);
     transition: 0.3 ease;
 }
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.skill-tag {
+    background: linear-gradient(135deg, #ff4b1f, #1fddff);
+    color: #222;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 5px;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.6s ease forwards;
+    box-shadow: 0 2px 5px rgba(0, 0, 0 ,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+/* animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* hover */
+.skill-tag:hover {
+  transform: translateY(0) scale(1.15); /* on garde la position finale + zoom */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*Animation texte Analysis Complete*/
+.zoom-icon {
+    display: inline-block;
+    animation: zoomIn 0.8s ease forwards;
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall 3s ease-in forwards;
+  z-index: 9999;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+  }
+}

@@ -41,16 +41,35 @@ const resumeFile = document.getElementById('resume_file');
     const foundSkills = extractSkills(text, skillsList);
 
     if (foundSkills.length > 0) {
-      resultDetails.innerHTML = `
-        <h3>✅ Skills detected: </h3>
-        <p>${foundSkills.join(', ')}</p>
-      `;
+  const colors = ["#00bcd4", "#ff9800", "#8bc34a", "#f44336", "#9c27b0"];
+  const skillTags = foundSkills.map((skill, i) => 
+    `<span class="skill-tag" style="
+        background:${colors[i % colors.length]};
+        animation-delay:${i * 0.1}s;
+    ">${skill}</span>`
+  ).join('');
+
+  resultDetails.innerHTML = `
+    <h3 class="fade-in">✅ ${foundSkills.length} Skills detected:</h3>
+    <div class="skills-container">${skillTags}</div>
+    <p id="analysis-complete" class="fade-in zoom-icon" style="animation-delay:0.8s;">🔍 Analysis complete!</p>
+  `;
+
+  playDing();
+
     } else {
       resultDetails.innerHTML = `
         <h3>skills not detected.</h3>
         <p>Try with another resume or add more words in the dictionary.</p>
       `;
       }
+    }
+
+    function playDing() {
+      const audio = new Audio('sounds/bubble.wav');
+      audio.volume = 0.3; //volume
+      audio.play().catch(err=> console.log("Audio autoplay blocked:", err));
+
     }
 
  //add event listener when user submits form
@@ -83,4 +102,20 @@ const resumeFile = document.getElementById('resume_file');
 
       displaySkills(pastedText); //analyze le texte collé
     }
+
+    function lauchConfetti() {
+      const colors = ["#00bcd4", "#ff9800", "#8bc34a", "#f44336", "#9c27b0"]
+      
+      for (let i=0; i <30; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.animationDelay = Math.random() * 1 + "s";
+    document.body.appendChild(confetti);
+
+    // disparition après animation
+    setTimeout(() => confetti.remove(), 3000);
+  }
+}
  });
