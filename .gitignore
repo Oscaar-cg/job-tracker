@@ -1,0 +1,12 @@
+# Dossier de configuration VS Code
+.vscode/
+
+# Fichiers système ou inutiles
+.DS_Store
+Thumbs.db
+
+# Fichiers de serveur local ou build
+node_modules/
+dist/
+build/
+.env
