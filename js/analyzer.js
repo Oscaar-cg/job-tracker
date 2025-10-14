@@ -78,4 +78,35 @@ resumeForm.addEventListener('submit', function (event) {
   } else {
     displaySkills(pastedText);
   }
+
+  // Select job describ + compare buttton
+  const jobText = document.getElementById('job_text');
+  const compareButton = document.getElementById('compare_button');
+
+  //Select elements display
+  const matchScoreText = document.getElementById('match_score_text');
+  const matchDetails = document.getElementById('match_details');
+  const matchCanvas = document.getElementById('match_canvas');
+  const ctx = document.getElementById('2d'); // canva "drawing"
+
+  function compareResumeAndJob() {
+    const resumeTextValue = resumeText.value.toLowerCase();
+    const jobTextValue = jobText.value.toLowerCase();
+
+    //extract skills from both text
+    const resumeSkills = extractSkills(resumeTextValue, skillsList);
+    const jobSkills  = extractSkills(jobTextValue, skillsList);
+    
+    // to find common skills
+    const matchingSkills = resumeSkills.filter(skill => jobSkills.includes(skill));
+    const missingSkills = jobSkills.filter(skill => !resumeSkills.includes(skill));
+
+    //score calcul%
+    const matchScore = jobSkills.length>0
+    ?Math.round((matchingSkills.length/jobSkills.length)*100)
+    : 0;
+
+    //display result
+    displayMatchResults(matchScore, matchingSkills, missingSkills);
+  }
 });
