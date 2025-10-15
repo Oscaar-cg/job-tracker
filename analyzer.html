@@ -24,6 +24,16 @@
 
 <header>
 <h1>Resume Analyzer</h1>
+
+<div id="language-selector">
+    <label for="lang_select"><strong>🌍 Language:</strong></label>
+    <select id="lang_select">
+       <option value="en" selected>English</option>
+       <option value="fr">Français</option>
+       <option value="es">Español</option>
+
+    </select>
+</div>
 <p>Paste your resume below and get instant feedback!</p>
 </header>
 
@@ -33,6 +43,7 @@
         <!--Upload resume-->
         <label for="resume_file">Uplod your resume:</label>
         <input type="file" id="resume_file" name="resume_file" accept="pdf, .doc, .docx, .txt">
+        <p id="upload_message"></p>
 
          <!--Textarea(to add past the resume as a texte)-->
          <label for="resume_text">Paste your resume:</label>
@@ -70,6 +81,7 @@
   </div>
 </section>
 
+<script src="js/pdfJs/pdf.min.js"></script>
 <script src="js/analyzer.js"></script>
 </body>
 
