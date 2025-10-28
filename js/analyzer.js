@@ -208,7 +208,7 @@ function displayMatchResults(score, matchingSkills, missingSkills) {
     <p><strong>⚠️ Missing Skills:</strong> ${missingSkills.join(", ") || "None"}</p>
   `;
 }
-// 🎨 Hide textarea when a PDF is uploaded, show it back if removed
+// Hide textarea when a PDF is uploaded, show it back if removed
 resumeFile.addEventListener('change', function () {
   const resumeTextArea = document.getElementById('resume_text');
 
@@ -224,7 +224,7 @@ resumeFile.addEventListener('change', function () {
   }
 });
 
-// ✅ Show message when a PDF is successfully uploaded
+// Show message when a PDF is successfully uploaded
 resumeFile.addEventListener('change', function () {
   const uploadMsg = document.getElementById('upload_message');
   const file = resumeFile.files && resumeFile.files[0];
