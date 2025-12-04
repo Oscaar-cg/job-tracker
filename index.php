@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,24 +13,29 @@
 <body>
     <!--Menu-->
     <nav>
-        <ul class="navbar-left">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="tracker.html">Job Tracker</a></li>
-            <li><a href="analyzer.html">Resume Analyzer</a></li>
-            <li><a href="tecnologies.html">Technologies</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <ul class="navbar-right">
-            <li><a href="#contact"></a></li>
-        </ul>
-    </nav>
+    <ul class="navbar-left">
+        <li><a href="index.php">Home</a></li>
+        <li><a href="tracker.php">Job Tracker</a></li>
+        <li><a href="analyzer.php">Resume Analyzer</a></li>
+        <li><a href="technologies.php">Technologies</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact</a></li>
+    </ul>
+    <ul class="navbar-right">
+             <!--Display the name of user connected-->
+        <?php if (isset($_SESSION['username'])): ?>
+            <li><a href="#">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+            <li><a href="logout.php">Logout</a></li>
+        <?php else: ?>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="register.php">Register</a></li>
+        <?php endif; ?>
+    </ul>
+</nav>
 
 
     <main>
-    
-    <header class="hero">
-        <h1> Welcome to job Tracker & Resume Analyzer</h1>
+
         <p>Track your job applications and optimize your Resumer easily</p>
         
         <p class="video-text">Motivational Video: Watch and get inspired!</p>
@@ -67,8 +76,8 @@
     <section id="get-started" class="section-cta">
         <h2>Get Started</h2>
         <p>Click to start tracking your jobs or optimizing your resume!</p>
-        <a href="tracker.html" class="btn">Go to Job Tracker</a>
-        <a href="analyzer.html" class="btn">Go to Resume Analyzer</a>
+        <a href="tracker.php" class="btn">Go to Job Tracker</a>
+        <a href="analyzer.php" class="btn">Go to Resume Analyzer</a>
     </section>
 
     <!--Reviews-->
@@ -82,5 +91,6 @@
     <footer>
         <p>&copy; 2025 Job Tracker & Resume Analyzer. All rights reserved.</p>
     </footer>
+    <script src="js/app.js"></script>
 </body>
 </html>

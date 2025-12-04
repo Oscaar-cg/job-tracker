@@ -1,3 +1,17 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['username']); // check si user co
+?>
+
+<?php include "components/modal.php"; ?> <!-- popup -->
+
+<?php
+// open popup auto si pas co
+if (!$isLoggedIn) {
+    echo "<script>window.onload = () => openAuthModal();</script>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +21,41 @@
 </head>
 
 <body>
+
      <!--Menu-->
     <nav>
-        <ul class="navbar-left">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="tracker.html">Job Tracker</a></li>
-            <li><a href="analyzer.html">Resume Analyzer</a></li>
-            <li><a href="technologies.html">Technologies</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <ul class="navbar-right">
-            <li><a href="#contact"></a></li>
-        </ul>
-    </nav>
+    <ul class="navbar-left">
+        <li><a href="index.php">Home</a></li>
+        <li><a href="tracker.php">Job Tracker</a></li>
+        <li><a href="analyzer.php">Resume Analyzer</a></li>
+        <li><a href="technologies.php">Technologies</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact</a></li>
+    </ul>
+
+    <ul class="navbar-right">
+        <?php if ($isLoggedIn): ?>
+            <!-- user co -->
+            <li><a href="#">Welcome, <?= htmlspecialchars($_SESSION['username']); ?></a></li>
+            <li><a href="logout.php">Logout</a></li>
+
+        <?php else: ?>
+            <!-- popup -->
+            <li><a href="#" onclick="openAuthModal()">Login</a></li>
+            <li><a href="#" onclick="openAuthModal()">Register</a></li>
+        <?php endif; ?>
+    </ul>
+</nav>
+
+<!-- lock message -->
+<?php if (!$isLoggedIn): ?>
+    <div class="lock-message">
+        <p>You need to login or create an account to use this feature.</p>
+    </div>
+<?php endif; ?>
+
+<!-- content (blur si pas co) -->
+<div class="page-content <?php if (!$isLoggedIn) echo 'locked'; ?>">
 
 <header>
 <h1>Resume Analyzer</h1>
@@ -31,13 +66,12 @@
        <option value="en" selected>English</option>
        <option value="fr">Français</option>
        <option value="es">Español</option>
-
     </select>
 </div>
+
 <p>Paste your resume below and get instant feedback!</p>
 </header>
 
-<!--form for user to input resume-->
 <section id="resume_section">
     <form id="resume_form">
         <!--Upload resume-->
@@ -45,7 +79,7 @@
         <input type="file" id="resume_file" name="resume_file" accept="pdf, .doc, .docx, .txt">
         <p id="upload_message"></p>
 
-         <!--Textarea(to add past the resume as a texte)-->
+         <!--Textarea-->
          <label for="resume_text">Paste your resume:</label>
          <textarea id="resume_text" name="resume_text" rows="10" placeholder="Paste your resume here!"></textarea>
         
@@ -56,24 +90,17 @@
 
 <section id="result_section">
     <h2>Analysis Result</h2>
-
-    <div id="result_details">
-
-    </div>
+    <div id="result_details"></div>
 </section>
 
-<!--Job match section-->
 <section id="job_match_section">
   <h2>Resume vs Job Description Match</h2>
 
-  <!--Paste job description-->
   <label for="job_text">Paste Job Description:</label>
   <textarea id="job_text" rows="8" placeholder="Paste the job Description here..."></textarea>
   
-  <!--Button-->
   <button id="compare_button">Compare Resume with Job</button>
 
-  <!--Resultat-->
   <div id="match_result">
     <canvas id="match_circle" width="200" height="200"></canvas>
     <p id="match_score_text"></p>
@@ -81,8 +108,11 @@
   </div>
 </section>
 
+</div>
+
 <script src="js/pdfJs/pdf.min.js"></script>
 <script src="js/analyzer.js"></script>
-</body>
+<script src="js/app.js"></script>
 
+</body>
 </html>
