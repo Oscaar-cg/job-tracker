@@ -1,50 +1,33 @@
 <?php
-include  'php/connect.php'; //connect to mysql
-if ($_SERVER["REQUEST_METHOD"]=="POST"){//ensure that the survey has been sent
-    $username = $_POST['username'];// get the user name
-    $email=$_POST['email'];//get the email
-    $password=password_hash($_POST['password'], PASSWORD_DEFAULT);//crypt password
+session_start();
+include "database.php";
 
-// Check if email already exists
-$checkEmail = "SELECT * FROM users WHERE email='$email'";
-$result = $conn->query($checkEmail);
+$email = $_POST['email'];
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+// check si email existe déjà
+$stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    echo "<p style='color:red;'> This email is already registered. Please <a href='login.php'>login</a> instead.</p>";
-} else {
-    // Insert new user
-    $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+    header("Location: tracker.php?error=email_exists&form=register");
+    exit();
+}
 
-    if ($conn->query($sql) === TRUE) {
-        echo "<p style='color:green;'> Registration successful! You can now <a href='login.php'>login</a>.</p>";
-    } else {
-        echo "<p style='color:red;'> Error: " . $conn->error . "</p>";
-    }
-}
-}
+// hash du password
+$hash = password_hash($password, PASSWORD_DEFAULT);
+
+// insertion
+$stmt2 = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+$stmt2->bind_param("sss", $username, $email, $hash);
+$stmt2->execute();
+
+// login auto
+$_SESSION['username'] = $username;
+
+header("Location: tracker.php");
+exit();
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTC-8">
-    <title>Register</title>
-     <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h1>Create an Account</h1>
-
-    <form method="POST" action=""><!--create form, post tell php to send info in the same page-->
-        <label>Username:</label><br>
-        <input type="text" name="username" required><br><br>
-
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
-
-        <label> Password:</label><br>
-        <input type="password" name="password" required><br><br>
-
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html>

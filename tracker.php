@@ -10,6 +10,42 @@ $isLoggedIn = isset($_SESSION['username']); // check si user co
 if (!$isLoggedIn) {
     echo "<script>window.onload = () => openAuthModal();</script>";
 }
+
+// error handling login/register, show popup + message
+if (isset($_GET['error'])) {
+
+    $error = $_GET['error'];
+
+    if ($error === "wrong_password") {
+        echo "<script>
+            window.onload = () => {
+                openAuthModal();
+                showLogin();
+                document.getElementById('login-error').innerText = 'Incorrect password.';
+            };
+        </script>";
+    }
+
+    if ($error === "user_not_found") {
+        echo "<script>
+            window.onload = () => {
+                openAuthModal();
+                showLogin();
+                document.getElementById('login-error').innerText = 'No account found with this email.';
+            };
+        </script>";
+    }
+
+    if ($error === "email_exists") {
+        echo "<script>
+            window.onload = () => {
+                openAuthModal();
+                showRegister();
+                document.getElementById('register-error').innerText = 'Email already exists.';
+            };
+        </script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,12 +54,15 @@ if (!$isLoggedIn) {
     <meta charset="UTF-8">
     <title>Job Tracker</title>
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Website favicon (SVG logo) -->
+    <link rel="icon" type="image/svg+xml" href="images/logo1.svg">
 </head>
 
 <body>
 
-     <!--Menu-->
-    <nav>
+<!--Menu-->
+<nav>
     <ul class="navbar-left">
         <li><a href="index.php">Home</a></li>
         <li><a href="tracker.php">Job Tracker</a></li>
@@ -35,12 +74,9 @@ if (!$isLoggedIn) {
 
     <ul class="navbar-right">
         <?php if ($isLoggedIn): ?>
-            <!-- user co -->
             <li><a href="#">Welcome, <?= htmlspecialchars($_SESSION['username']); ?></a></li>
             <li><a href="logout.php">Logout</a></li>
-
         <?php else: ?>
-            <!-- open popup pas page login -->
             <li><a href="#" onclick="openAuthModal()">Login</a></li>
             <li><a href="#" onclick="openAuthModal()">Register</a></li>
         <?php endif; ?>
@@ -59,23 +95,22 @@ if (!$isLoggedIn) {
 
 <header>
     <h1>Job Tracker</h1>
-    <p>Keep track of all your job applications in one place!</p>
+    <p class="home-intro-text">Keep track of all your job applications in one place!</p>
 </header>
 
 <section id="add-job">
     <h2>Add a Job</h2>
 
-    <!-- job form -->
     <form id="jobForm">
-        <label for="job-title"> Job Title:</label>
-        <input type="text" id="job-title" name="job-title" placeholder="Enter job title" required>
+        <label for="job-title">Job Title:</label>
+        <input type="text" id="job-title" name="job-title" required>
 
-        <label for="company"> Company:</label>
-        <input type="text" id="company" name="company" placeholder="Enter company name" required>
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company" required>
 
         <label for="status">Application Status:</label>
         <select id="status" name="status">
-            <option value="Applied"> Applied</option>
+            <option value="Applied">Applied</option>
             <option value="Interview">Interview</option>
             <option value="Offer">Offer</option>
             <option value="Rejected">Rejected</option>
@@ -97,15 +132,12 @@ if (!$isLoggedIn) {
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            <!-- jobs js -->
-        </tbody>
+        <tbody></tbody>
     </table>
 </section>
 
 </div>
 
-<!-- scripts -->
 <script src="js/jobTracker.js"></script>
 <script src="js/app.js"></script>
 

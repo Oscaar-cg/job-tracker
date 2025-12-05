@@ -1,61 +1,27 @@
 <?php
 session_start();
-include 'php/connect.php';
+include "database.php";
 
-if($_SERVER["REQUEST_METHOD"]=="POST"){
-    $email=$_POST['email'];
-    $password =$_POST['password'];
+$email = $_POST['email'];
+$password = $_POST['password'];
 
-    //Request to find the user
-    $sql ="SELECT * FROM users Where email='$email'";//request to find user with email
-    $result =$conn->query($sql);
+$query = $conn->prepare("SELECT * FROM users WHERE email = ?");
+$query->bind_param("s", $email);
+$query->execute();
+$result = $query->get_result();
+$user = $result->fetch_assoc();
 
-    if($result->num_rows > 0) {//if we find the user
-        $row =$result->fetch_assoc();//get info of the line
-        if (password_verify($password, $row['password'])) { //compare password with the one stocké
-            //stoke les info
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['user_id']=$row['id'];
-            $_SESSION['profil_pic']=$row['profil_pic'];
-            header("Location: index.php");//sent to main page
-            exit();
-
-        } else {
-            echo "Wrong password!";
-        }
-    } else {
-        echo "No account found for this email.";
-    }
+if (!$user) {
+    header("Location: tracker.php?error=user_not_found");
+    exit();
 }
+
+if (!password_verify($password, $user['password'])) {
+    header("Location: tracker.php?error=wrong_password");
+    exit();
+}
+
+$_SESSION['username'] = $user['username'];
+header("Location: tracker.php");
+exit();
 ?>
-
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <meta charset="UTC-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h1>login</h1>
-
-    <?php
-    //Display error msg if needed
-    if(isset($error)) {
-        echo"<p style='color:red;'>$error</p>";
-    }
-    ?>
-
-    <form method="POST" action="">
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
-
-        <label>Password:</label><br>
-        <input type="password" name="password"required><br><br>
-
-        <button type="submit">Login</button>
-    </form>
-
-    <p> Don't have an account? <a href="register.php">Register here</a></p>
-</body>
-</html>

@@ -8,21 +8,23 @@ session_start();
     <meta charset="UTF-8">
     <title>About</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="images/logo1.svg">
 </head>
 
 <body>
-    <!--Menu-->
-    <nav>
+
+<!--Menu-->
+<nav>
     <ul class="navbar-left">
         <li><a href="index.php">Home</a></li>
         <li><a href="tracker.php">Job Tracker</a></li>
         <li><a href="analyzer.php">Resume Analyzer</a></li>
         <li><a href="technologies.php">Technologies</a></li>
-        <li><a href="about.php">About</a></li>
+        <li><a class="active" href="about.php">About</a></li>
         <li><a href="contact.php">Contact</a></li>
     </ul>
+
     <ul class="navbar-right">
-             <!--Display the name of user connected-->
         <?php if (isset($_SESSION['username'])): ?>
             <li><a href="#">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
             <li><a href="logout.php">Logout</a></li>
@@ -33,9 +35,44 @@ session_start();
     </ul>
 </nav>
 
-<h1>About</h1>
-<p>Comming soon About....</p>
+<div class="about-container">
+    <h1>About This Project</h1>
 
-<div id="menu-placeholder"></div>
+    <p class="about-intro">
+        This website was created to offer a simple and organized way for users to manage their job search.
+        The goal was to build a practical tool that helps keep track of applications and understand how well a resume matches a job description.
+    </p>
+
+    <div class="about-sections">
+
+        <div class="about-box">
+            <h2>Why This Project Exists</h2>
+            <p>
+                Job searching can be confusing and overwhelming. Applications can be forgotten,
+                and resumes often need to be adapted to each job. This project helps make the process clearer and more structured.
+            </p>
+        </div>
+
+        <div class="about-box">
+            <h2>How It Helps Users</h2>
+            <ul>
+                <li>Stay organized during their job search</li>
+                <li>Store all applications in one place</li>
+                <li>Compare resume and job description easily</li>
+                <li>Use a clean and simple interface</li>
+            </ul>
+        </div>
+
+        <div class="about-box">
+            <h2>About the Creator</h2>
+            <p>
+                This project was designed and developed by a student learning full-stack web development,
+                with the intention of building something functional, useful, and user-friendly.
+            </p>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>

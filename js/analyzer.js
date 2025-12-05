@@ -23,7 +23,7 @@ function normalizeText(text) {
     .toLowerCase() // met tout en minuscules
     .replace(/\bapplications\b/g, "application")
     .replace(/\bdevelopers\b/g, "developer")
-    .replace(/\bengineers?\b/g, "engineer") // s? → singulier ou pluriel
+    .replace(/\bengineers?\b/g, "engineer") // singulier ou pluriel
     .replace(/\bstudents?\b/g, "student")
     .replace(/\btechnologies\b/g, "technology")
     .replace(/\bskills?\b/g, "skill")
@@ -33,7 +33,7 @@ function normalizeText(text) {
     .replace(/\boop\b/g, "object oriented programming");
 }
 
-// 🧠 tell PDF.js where to find the worker file
+// tell PDF where to find the worker file
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'js/pdfjs/pdf.worker.min.js';
 
 // Function that finds skills in the text
@@ -98,7 +98,7 @@ resumeForm.addEventListener('submit', function (event) {
       fileReader.onload = async function () {
         const typedarray = new Uint8Array(this.result);
 
-        //load pdf document w/ PDF.js
+        //load pdf document
         const pdf = await pdfjsLib.getDocument(typedarray).promise;
         let text = "";
 
@@ -154,7 +154,7 @@ function compareResumeAndJob() {
   const matchingSkills = resumeSkills.filter(skill => jobSkills.includes(skill));
   const missingSkills = jobSkills.filter(skill => !resumeSkills.includes(skill));
 
-  //score calcul%
+  //score calcul
   const matchScore = jobSkills.length > 0
   ? Math.round((matchingSkills.length / jobSkills.length) * 100)
   : 0;
